@@ -21,7 +21,6 @@ cur.execute(
     );
 """
 )
-
 cur.execute(
     """
     CREATE TABLE IF NOT EXISTS materials (
@@ -31,7 +30,6 @@ cur.execute(
     );
 """
 )
-
 cur.execute(
     """
     CREATE TABLE IF NOT EXISTS deliveries (
@@ -44,7 +42,6 @@ cur.execute(
     );
 """
 )
-
 
 conn.commit()
 cur.close()
