@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: supply_department
+    ports:
+      - "5544:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+
+  app:
+    image: python:3.9-slim
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: bash -c "pip install psycopg2-binary faker && python create_tables.py"
+    depends_on:
+      - db
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
